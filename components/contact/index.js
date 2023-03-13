@@ -1,6 +1,6 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, {useMemo, useRef, useState} from "react";
 import HeadingText from "../heading-text";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
 
 const SPARKPOST_KEY = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY;
@@ -9,9 +9,10 @@ const generalFormClasses = `bg-black rounded-xl p-3`;
 const inputClasses = `text-white border border-gray-400 col-span-2 sm:col-span-1`;
 const textareaClasses = `text-white border border-gray-400 col-span-2`;
 
-const AnimatedButtonContent = ({ loading }) => {
+const AnimatedButtonContent = ({loading}) => {
 	return loading ? (
-		<svg className="animate-spin h-8 w-8 mr-3 fill-current text-black" x="0px" y="0px" width="399.387px" height="399.387px" viewBox="0 0 399.387 399.387">
+		<svg className="animate-spin h-8 w-8 mr-3 fill-current text-black" x="0px" y="0px" width="399.387px"
+				 height="399.387px" viewBox="0 0 399.387 399.387">
 			<g>
 				<path
 					d="M340.896,58.488C303.18,20.771,253.033,0,199.694,0C146.353,0,96.207,20.771,58.491,58.488
@@ -46,7 +47,10 @@ const AnimatedButtonContent = ({ loading }) => {
 	);
 };
 
-const SuccessOverlay = ({ mailSuccess, callback = () => {} }) => (
+const SuccessOverlay = ({
+													mailSuccess, callback = () => {
+	}
+												}) => (
 	<div
 		className={`flex flex-col justify-center items-center backdrop-filter backdrop-blur absolute bg-black bg-opacity-50 h-full left-0 transition ease-out duration-100 ${
 			mailSuccess ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -90,14 +94,15 @@ const SuccessOverlay = ({ mailSuccess, callback = () => {} }) => (
 					callback();
 				}}>
 				Click Here
-			</button>{" "}
+			</button>
+			{" "}
 			to send us another message!
 		</p>
 	</div>
 );
 
 const Contact = () => {
-    const captchaRef = useRef()
+	const captchaRef = useRef()
 	const [captcha, setCaptcha] = useState('');
 	const [mailSuccess, setMailSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -108,8 +113,8 @@ const Contact = () => {
 	const {
 		register,
 		handleSubmit,
-        reset,
-		formState: { errors },
+		reset,
+		formState: {errors},
 	} = useForm();
 
 	const handleSuccess = (response) => {
@@ -128,7 +133,7 @@ const Contact = () => {
 			const url = "/api/mail";
 			const options = {
 				method: "POST",
-				body: JSON.stringify({ ...data, captcha }),
+				body: JSON.stringify({...data, captcha}),
 			};
 
 			setLoading(true);
@@ -139,13 +144,13 @@ const Contact = () => {
 	};
 
 	const handleResetForm = () => {
-        captchaRef.current.reset()
-        setCaptchaError(false);
+		captchaRef.current.reset()
+		setCaptchaError(false);
 		setCaptcha('');
-        setMailSuccess(false)
-        setLoading(false)
-        reset()
-    };
+		setMailSuccess(false)
+		setLoading(false)
+		reset()
+	};
 
 	const onChangeCaptcha = (value) => {
 		setCaptchaError(false);
@@ -155,27 +160,32 @@ const Contact = () => {
 	return (
 		<div className={`relative`}>
 			<HeadingText text={"Discuss with us."} />
-			<form className={`bg-white bg-opacity-10 grid grid-cols-2 p-4 sm:p-10 gap-3 rounded-xl relative overflow-hidden`} onSubmit={handleSubmit(onSubmit)}>
+			<form className={`bg-white bg-opacity-10 grid grid-cols-2 p-4 sm:p-10 gap-3 rounded-xl relative overflow-hidden`}
+						onSubmit={handleSubmit(onSubmit)}>
 				<input
 					className={`${generalFormClasses} ${inputClasses} ${errors["firstname"] ? "border-4 border-red-600" : ""}`}
 					type="text"
 					placeholder="First Name"
-					{...register("firstname", { required: true })}
+					{...register("firstname", {required: true})}
 				/>
 				<input
 					className={`${generalFormClasses} ${inputClasses} ${errors["lastname"] ? "border-4 border-red-600" : ""}`}
 					type="text"
 					placeholder="Last Name"
-					{...register("lastname", { required: true })}
+					{...register("lastname", {required: true})}
 				/>
-				<input className={`${generalFormClasses} ${inputClasses} ${errors["email"] ? "border-4 border-red-600" : ""}`} type="email" placeholder="Email" {...register("email", { required: true })} />
-				<input className={`${generalFormClasses} ${inputClasses} ${errors["mobile"] ? "border-4 border-red-600" : ""}`} type="tel" placeholder="Mobile" {...register("mobile", {})} />
-				<input className={`${generalFormClasses} ${inputClasses} ${errors["company"] ? "border-4 border-red-600" : ""} sm:col-span-2`} type="text" placeholder="Company" {...register("company", {})} />
+				<input className={`${generalFormClasses} ${inputClasses} ${errors["email"] ? "border-4 border-red-600" : ""}`}
+							 type="email" placeholder="Email" {...register("email", {required: true})} />
+				<input className={`${generalFormClasses} ${inputClasses} ${errors["mobile"] ? "border-4 border-red-600" : ""}`}
+							 type="tel" placeholder="Mobile" {...register("mobile", {})} />
+				<input
+					className={`${generalFormClasses} ${inputClasses} ${errors["company"] ? "border-4 border-red-600" : ""} sm:col-span-2`}
+					type="text" placeholder="Company" {...register("company", {})} />
 				<textarea
 					rows={8}
 					placeholder={"Message"}
 					className={`${generalFormClasses} ${textareaClasses} ${errors["message"] ? "border-4 border-red-600" : ""}`}
-					{...register("message", { required: true })}
+					{...register("message", {required: true})}
 				/>
 
 				<button className={`${generalFormClasses} ${buttonClasses}`} type="submit" role={"button"}>
@@ -189,7 +199,8 @@ const Contact = () => {
 
 				<SuccessOverlay mailSuccess={mailSuccess} callback={handleResetForm} />
 			</form>
-			<img className={"hidden sm:block absolute -top-10 opacity-20 right-0"} alt={"logo"} src={"logo/apieda_mini_logo_mini.svg"} />
+			<img className={"hidden sm:block absolute -top-10 opacity-20 right-0"} alt={"logo"}
+					 src={"logo/apieda_mini_logo_mini.svg"} />
 		</div>
 	);
 };

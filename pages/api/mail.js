@@ -80,8 +80,8 @@ export default async function handler(req, res) {
 	try {
 		await client.transmissions.send({
 			content: {
-				from: "contact@apieda.al",
-				subject: "New message from apieda.al site contact form",
+				from: "contact@emae.events",
+				subject: "New message from emae.events site contact form",
 				html,
 			},
 			recipients: [{ address: process.env.MAIN_MAIL || "klaididingu@gmail.com" }],
