@@ -1,6 +1,5 @@
 ---
 deployments:
   tasks:
-    - npm install && npm run build
     - export DEPLOYPATH=/home/site/public_html/
-    - /bin/cp -R build $DEPLOYPATH
+    - /bin/cp -R out $DEPLOYPATH
